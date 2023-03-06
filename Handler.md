@@ -23,11 +23,13 @@
 - 错误引用，无法回收
 - 生命周期短的对象引用了生命周期长的对象
 - 匿名内部类Handler自动持有了外部类Activity的引用
+
 这几个回答都比较片面，实际与JVM息息相关
 ### JVM
 GCRoot 直接或者间接持有了对象的引用，这个对象就不能被回收
 持有关系 static threadLocal -> looper -> messageQueue -> msg -> handler -> activity
-解决方案：本质是找到引用链，然后打断它:
+#### 解决方案：
+本质是找到引用链，然后打断它:
 1. 所以handler必须是static的，静态的匿名内部类不会持有外部类的引用(详见《Java编程思想》)
 2. remove message,调用MessageQueue.removeMessages()方法
 #### static关键字
