@@ -27,7 +27,7 @@
 这几个回答都比较片面，实际与JVM息息相关
 ### JVM
 GCRoot 直接或者间接持有了对象的引用，这个对象就不能被回收
-持有关系 static threadLocal -> looper -> messageQueue -> msg -> handler -> activity
+- 持有关系 static threadLocal -> looper -> messageQueue -> msg -> handler -> activity
 #### 解决方案：
 本质是找到引用链，然后打断它:
 1. 所以handler必须是static的，静态的匿名内部类不会持有外部类的引用(详见《Java编程思想》)
@@ -37,10 +37,14 @@ GCRoot 直接或者间接持有了对象的引用，这个对象就不能被回�
 ### 什么类型是GCRoot
 常量，静态变量
 ### handler源码中
+```
 msg.target = this;
 mQueue = mLooper.mQueue;
+```
 ### Looper源码中
+```
 mQueue = new MessageQueue(quitAllowed);
 sThreadLocal.set(new Looper(quitAllowed));
 static final ThreadLocal<Looper> sThreadLocal = new ThreadLocal<Looper>();
+```
 
