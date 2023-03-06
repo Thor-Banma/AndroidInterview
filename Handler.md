@@ -11,8 +11,9 @@
 - ...
 
 ## Handler原理
-子线程 handler.sendMessage(msg)/handler.post(Runnable) -> messageQueue.enqueueMessage() 消息入队列过程
-主线程 AMS(ActivityManagerService) -----发送创建进程的请求---> Zygote.fork() --反射reflect--> ActivityThread.main()-> Looper.loop() -> messageQueue.next() -> handler.dispatchMessage() -> handle.handleMessage()
+- 子线程 handler.sendMessage(msg)/handler.post(Runnable) -> messageQueue.enqueueMessage() 消息入队列过程
+- 主线程 AMS(ActivityManagerService) -----发送创建进程的请求---> Zygote.fork() --反射reflect--> ActivityThread.main()-> Looper.loop() -> messageQueue.next() -> handler.dispatchMessage() -> handle.handleMessage()
+
 此方案只是一个浅层的实现逻辑，深层得益于线程间内存共享
 ### 线程间内存共享
 ### 跨进程也可以共享内存
