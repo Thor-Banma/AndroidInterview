@@ -61,6 +61,6 @@ static final ThreadLocal<Looper> sThreadLocal = new ThreadLocal<Looper>();
 2. 队列空的时候，取消息会等待
 
 
-## Handler发送延时消息
+## Handler如何处理发送延时消息
 
 
