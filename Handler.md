@@ -54,4 +54,13 @@ static final ThreadLocal<Looper> sThreadLocal = new ThreadLocal<Looper>();
 - Activty（AMS来添加的msg）和fragment的生命周期都是handler来控制的，甚至屏幕的刷新(60HZ 1000/60=14ms)都是通过handler发送msg控制，所以不能设置上限
 - AMS->Binder(跨进程)->ApplicationThread->ActivityThread
 
+## MessageQueue能不能用阻塞队列？
+不能。
+### 阻塞队列（概念，线程池管理，并发）
+1. 队列有大小
+2. 队列空的时候，取消息会等待
+
+
+## Handler发送延时消息
+
 
