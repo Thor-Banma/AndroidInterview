@@ -62,5 +62,4 @@ static final ThreadLocal<Looper> sThreadLocal = new ThreadLocal<Looper>();
 
 
 ## Handler如何处理发送延时消息
-
-
+next->等待时间->nativePollOnce(JNI)
