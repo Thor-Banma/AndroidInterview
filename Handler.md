@@ -11,8 +11,8 @@
 - ...
 
 ## Handler原理
-- 子线程 handler.sendMessage(msg)/handler.post(Runnable) -> messageQueue.enqueueMessage() 消息入队列过程
-- 主线程 AMS(ActivityManagerService) -----发送创建进程的请求---> Zygote.fork() --反射reflect--> ActivityThread.main()-> Looper.loop() -> messageQueue.next() -> handler.dispatchMessage() -> handle.handleMessage()
+- 子线程（生产者） handler.sendMessage(msg)/handler.post(Runnable) -> messageQueue.enqueueMessage() 消息入队列过程
+- 主线程（消费者） AMS(ActivityManagerService) -----发送创建进程的请求---> Zygote.fork() --反射reflect--> ActivityThread.main()-> Looper.loop() -> messageQueue.next() -> handler.dispatchMessage() -> handle.handleMessage()
 
 此方案只是一个浅层的实现逻辑，深层得益于线程间内存共享
 ### 线程间内存共享
@@ -25,7 +25,7 @@
 - 匿名内部类Handler自动持有了外部类Activity的引用
 
 这几个回答都比较片面，实际与JVM息息相关
-### JVM
+### JVM（引用计数，可达性分析，垃圾回收算法）
 GCRoot 直接或者间接持有了对象的引用，这个对象就不能被回收
 - 持有关系 static threadLocal -> looper -> messageQueue -> msg -> handler -> activity
 #### 解决方案：
