@@ -48,3 +48,10 @@ sThreadLocal.set(new Looper(quitAllowed));
 static final ThreadLocal<Looper> sThreadLocal = new ThreadLocal<Looper>();
 ```
 
+## MessageQueue有上限吗？
+## MessageQueue
+- 单链表，按执行时间先后排序，每次先执行第一个消息，只有前一个执行完成了，才执行下一个
+- Activty（AMS来添加的msg）和fragment的生命周期都是handler来控制的，甚至屏幕的刷新(60HZ 1000/60=14ms)都是通过handler发送msg控制，所以不能设置上限
+- AMS->Binder(跨进程)->ApplicationThread->ActivityThread
+
+
