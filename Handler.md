@@ -62,4 +62,7 @@ static final ThreadLocal<Looper> sThreadLocal = new ThreadLocal<Looper>();
 
 
 ## Handler如何处理发送延时消息
-next->等待时间->nativePollOnce(JNI)
+- next->等待时间->nativePollOnce(JNI zygote注册)->epoll_wait
+- 正常是 nativeWake->epoll
+### epoll
+监听 红黑树 （hashmap），减少遍历时间
